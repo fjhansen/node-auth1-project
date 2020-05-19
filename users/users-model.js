@@ -13,3 +13,7 @@ function addUser(user) {
 function fetchUsers() {
   return db("users").select("id", "username")
 }
+
+function findBy(filter) {
+  return db("users").where(filter)
+}

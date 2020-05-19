@@ -5,7 +5,32 @@ const router = require("express").Router();
 const Users = require("../users/users-model.js")
 const { isValid } = require("../users/users-service")
 
-router.post('/api/register', (req, res) => {
+router.post("/login", (req, res) => {
+  const { username, password } = req.body
+  
+  if (isValid(req.body)) {
+    Users.findby({ username: username })
+    .then(([user]) => {
+      if (user && bcryptjs.compareSync(password, user.password)) {
+        req.session.loggedIn = true;
+        req.session.user = user
+        
+        res.status(200).json({ message: 'login successful'})
+      } else {
+        res.status(401).json({ message: "invalid password and/or username"})
+      }
+    })
+    .catch(error => {
+      res.status(500).json({ message: error.message })
+    });
+  } else {
+    res.status(400).json({
+      message: "provide username and password, and password must be alphanumeric"
+    })
+  }
+})
+
+router.post('/register', (req, res) => {
   const newUser = req.body;
 
   if (isValid(newUser)) {
@@ -27,7 +52,7 @@ router.post('/api/register', (req, res) => {
     });
   } else {
     res.status(400).json({
-      message: "provice username and password, and password must be alphanumeric"
+      message: "provide username and password, and password must be alphanumeric"
     })
   }
 })
