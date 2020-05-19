@@ -1,4 +1,4 @@
 const server = require('./api/server.js');
 
-const port = 5555;
+const port = 5003;
 server.listen(port, () => console.log(`\n** Running on port ${port} **\n`));

@@ -3,8 +3,8 @@ const helmet = require("helmet");
 const cors = require("cors");
 const session = require("express-session");
 
-const usersRouter = require("../users/users-router.js");
-const loginRouter = require("../auth/router.js");
+const usersRouter = require("../users/users-router");
+const loginRouter = require("../auth/router");
 
 const server = express();
 
@@ -17,7 +17,7 @@ const sessionConfig = {
   resave: false,
   saveUninitialized: true,
   name: "monster",
-  secret: "keepitsecret,keepitsafe!",
+  secret: "pw1",
 };
 
 server.use(session(sessionConfig))

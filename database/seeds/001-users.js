@@ -4,7 +4,7 @@ exports.seed = function (knex) {
   const users = [
     {
       username: "admin",
-      password: "keepitsecret,keepitsafe.",
+      password: "pw1",
     }
   ];
 

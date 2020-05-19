@@ -12,8 +12,9 @@ function restricted(req, res, next) {
 
 router.use(restricted);
 
-router.get("/api/users", (req, res) => {
-  Users.findUser()
+router.get("/", (req, res) => {
+  console.log('session', req.session)
+  Users.fetchUsers()
   .then(users => {
     res.json(users);
   })
