@@ -3,13 +3,13 @@ const bcryptjs = require("bcryptjs");
 const router = require("express").Router();
 
 const Users = require("../users/users-model.js")
-const { isValid } = require("../users/users-service")
+// const { isValid } = require("../users/users-service")
 
 
 router.post('/register', (req, res) => {
   const newUser = req.body;
 
-  if (isValid(newUser)) {
+  if (newUser) {
 
     // hash password
     const hash = bcryptjs.hashSync(newUser.password, 16)
@@ -36,13 +36,13 @@ router.post('/register', (req, res) => {
 router.post("/login", (req, res) => {
   const { username, password } = req.body
   
-  if (isValid(req.body)) {
+  if (req.body) {
     Users.findby({ username: username })
     .then(([user]) => {
       if (user && bcryptjs.compareSync(password, user.password)) {
         req.session.loggedIn = true;
         req.session.user = user
-        res.status(200).json({ message: 'login successful'})
+        return res.status(200).json({ message: 'login successful'})
       } else {
         res.status(401).json({ message: "invalid password and/or username"})
       }

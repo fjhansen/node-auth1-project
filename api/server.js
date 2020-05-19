@@ -27,7 +27,7 @@ server.use(express.json())
 server.use(cors())
 
 server.use("/api/users", usersRouter)
-server.use("/api/login", loginRouter)
+server.use("/api/auth", loginRouter)
 
 server.get("/", (req, res) => {
   res.json({ api: "up!" })
